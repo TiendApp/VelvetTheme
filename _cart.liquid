@@ -1,0 +1,9 @@
+<div class="btn btn-cart" ng-show="!product.has_variants" ng-click="products.hasStock(product) && cart.addToCart(product.master.id, product.name, 1)" ng-disabled="!products.hasStock(product)" ng-cloak>
+  <i style="margin-right: 7px" class='fa fa-shopping-cart'></i>
+  Agregar al carro
+</div>
+
+<a ng-href="/products/{[product.slug]}" class="btn btn-cart" ng-show="product.has_variants" ng-cloak>
+  <i style="margin-right: 7px" class='fa fa-shopping-cart'></i>
+  Agregar al carro
+</a>

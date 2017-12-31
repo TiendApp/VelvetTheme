@@ -1,0 +1,124 @@
+<style>
+  body{
+    background-image: url({{'background_image' | customizable : customization.background_image, preview}});
+  }
+
+</style>
+{% include 'header' %}
+
+<div id="body-container" >
+  <div class="ribbon-container">
+    <h1 class="ribbon">
+      <strong class="ribbon-content">{{taxonomies[0].name}}</strong>
+    </h1>
+  </div>
+  <span class="overlay" ng-show="products.loading()">
+    <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+  </span>
+  <div class="container">
+    <div class="row" data-hook>
+
+      {% include 'widgets/breadcrumbs' %}
+      <div id="content" data-hook>
+        {% include 'products' %}
+      </div>
+
+    </div>
+    <div class="features">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-12">
+          <div class="row">
+            <div class="col-sm-6 col-xs-12">
+              <div class="featured-content">
+                <div class="row">
+                  <div class="col-sm-4 col-xs-12">
+                    {{'feature_1_image' | customizable_image : customization.feature_1_image, preview, 'Feature 1 Image'}}
+                  </div>
+                  <div class="col-sm-8 col-xs-12">
+                    <h2>
+                      <span>
+                        DESPACHO
+                      </span>
+                      <span style="color:#F7DF07;">GRATIS</span>
+                      <span>
+                        EN CHICUREO
+                      </span>
+                    </h2>
+                    <h5>
+                      (Consultar por otras comunas)
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="featured-content">
+                <div class="row">
+                  <div class="col-sm-4 col-xs-12">
+                    {{'feature_2_image' | customizable_image : customization.feature_2_image, preview, 'Feature 2 Image'}}
+                  </div>
+                  <div class="col-sm-8 col-xs-12">
+                    <h2>
+                      PEDIDO MINIMO
+                    </h2>
+                    <h1>
+                      $24.000
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if user.is_logged_in? == false or preview %}
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
+        <div class="subscription animate-fade" ng-show="products.home && {% if preview == false %}!session.userSignedIn() {% endif%}" ng-controller="SubscriptionController as subscription" ng-cloak>
+          <div class="subscription-title">
+            {{"home_subscribe_title" | customizable : customization.home_subscribe_title, preview }}
+          </div>
+          <div class="subscription-content">
+            <div class="form-submitted animate-fade"  ng-show='mailFormState == "submitted"' ng-cloak>
+              <h5>
+
+                ¡Muchas gracias!
+              </h5>
+              <p>
+                Hemos agregado tu correo a nuestros sistemas.
+              </p>
+            </div>
+            <form ng-submit='subscription.addToMailingList()' ng-hide='mailFormState == "submitted"'>
+              <div class="input-group mail-input " >
+                <div class="col-md-3 col-sm-12">
+                    <input type="text" class="form-control" placeholder="Nombre" ng-model="subscription.nameListItem">
+                  </div>
+                  <div class="col-md-5 col-sm-12">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="subscription.mailingListItem">
+                  </div>
+                  <div class="col-md-4 col-sm-12 text-center">
+                    <span class="input-group-btn" ng-switch='mailFormState'>
+                      <button class="btn btn-default primary disabled ng-animate-disabled" ng-switch-when='submitting'>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        Enviando
+                      </button>
+                      <button class="btn btn-default primary ng-animate-disabled disabled" type="button" ng-switch-when="submitted">Enviado</button>
+                      <button class="btn btn-default primary ng-animate-disabled" type="submit" ng-switch-default >Suscríbete ahora</button>
+                    </span>
+                  </div>
+              </div><!-- /input-group -->
+
+              <small class="error" ng-show='emailFormError == "invalid-email"' ng-cloak>
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Por favor ingresa un correo válido
+              </small>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+  </div>
+</div>

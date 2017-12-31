@@ -1,0 +1,35 @@
+<a class="product-image-container" href="/products/{[product.slug]}">
+  <div class="product-snippet-image">
+    <img ng-src="{[product.master.images[0].product_url]}"/>
+    <div class="product-promotion" ng-cloak ng-show="product.master.promo_price != null">
+      Oferta
+    </div>
+  </div>
+  <div class="product-snippet-caption">
+  </div>
+</a>
+
+<div class="row product-snippet-text">
+  <div class="product-snippet-name text-center">
+    <a href="/products/{[product.slug]}">
+      {[product.name]}
+    </a>
+  </div>
+  <div>
+    <div ng-repeat="property in product.product_properties | limitTo:2">
+      <div><span style="margin-right:10px;"><b>{[property.property_name]}:</b></span><span>{[property.value]}</span></div>
+    </div>
+  </div>
+  {% if user.has_cart? %}
+    <div class="text-center">
+      <div class="small-hr">
+
+      </div>
+    </div>
+    <div class="product-snippet-price text-center">
+      <div ng-class="{'old-price': product.master.promo_price != null}">{[product.price | currency : '$' : 0 | comma_to_dot]}</div>
+      <div ng-show="product.master.promo_price != null" ng-cloak>{[product.master.promo_price | currency : '$' : 0 | comma_to_dot]}</div>
+    </div>
+    {% include 'cart' %}
+  {% endif %}
+</div>

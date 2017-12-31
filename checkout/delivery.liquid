@@ -1,0 +1,36 @@
+<div class="checkout">
+
+  {{ 'css/progress-wizard.min.css' | asset_url | stylesheet_tag }}
+  <div class="row">
+    <ul class="progress-indicator">
+
+        <li class="completed"> <span class="bubble"></span> <a href="/cart">Confirmar Carro </a></li>
+
+
+        <li class="completed"> <span class="bubble"></span> <a href="/checkout/address">Información de Envío </a></li>
+
+
+        <li class="current"> <span class="bubble"></span>Métodos de Envío</li>
+
+
+        <li class="next"> <span class="bubble"></span>Medios de Pago</li>
+
+      <li class="next"> <span class="bubble"></span> Completado </li>
+    </ul>
+  </div>
+  <h4>
+    Realizar el Pedido
+  </h4>
+  <div class="errors">
+    {{content_for_errors}}
+    {{flash_messages}}
+  </div>
+  <div class="row">
+    <div class="col-sm-3 col-sm-push-9">
+      {{content_for_summary}}
+    </div>
+    <div class="col-sm-9 col-sm-pull-3">
+      {{content_for_form}}
+    </div>
+  </div>
+</div>

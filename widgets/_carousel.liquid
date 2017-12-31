@@ -1,0 +1,46 @@
+<div id="carousel-widget" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      {{'header_image_1' | customizable_image : customization.header_image_1, preview, 'Header Image 1'}}
+      <div class="carousel-caption">
+        <a href='{{ "header_slide_1_link" | customizable : customization.header_slide_1_link, preview }}'>
+          <button class="call-to-action btn">
+            {{ "header_slide_1_button_text" | customizable : customization.header_slide_1_button_text, preview }}
+          </button>
+        </a>
+      </div>
+    </div>
+    <div class="item">
+      {{'header_image_2' | customizable_image : customization.header_image_2, preview, 'Header Image 2'}}
+      <div class="carousel-caption">
+        <a href='{{ "header_slide_2_link" | customizable : customization.header_slide_2_link, preview }}'>
+          <button class="call-to-action btn">
+            {{ "header_slide_2_button_text" | customizable : customization.header_slide_2_button_text, preview }}
+          </button>
+        </a>
+      </div>
+    </div>
+    <div class="item">
+      {{'header_image_3' | customizable_image : customization.header_image_3, preview, 'Header Image 3'}}
+      <div class="carousel-caption">
+        <a href='{{ "header_slide_3_link" | customizable : customization.header_slide_3_link, preview }}'>
+          <button class="call-to-action btn">
+            {{ "header_slide_3_button_text" | customizable : customization.header_slide_3_button_text, preview }}
+          </button>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="carousel-outer">
+    <div class="logo">
+      {{'logo' | customizable_image : customization.logo, preview, 'Logo'}}
+    </div>
+  </div>
+
+</div>

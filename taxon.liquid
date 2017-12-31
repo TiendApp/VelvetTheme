@@ -1,0 +1,16 @@
+<div id="body-container" >
+  <div class="text-center" ng-show="products.loading()">
+    <i class="fa fa-circle-o-notch fa-spin fa-4x" style="color:#404040;margin-top:50px;position:absolute;left:50%;margin-left:-20px;"></i>
+  </div>
+  </span>
+  <div class="container" ng-init="products.directTaxons = true && products.setTaxon({{taxon.id}})">
+    <div class="row">
+
+      {% include 'widgets/breadcrumbs' %}
+      <div id="content">
+        {% include 'products' %}
+      </div>
+
+    </div>
+  </div>
+</div>

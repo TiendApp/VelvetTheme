@@ -1,0 +1,38 @@
+<html ng-app="tiendAppFrontend" ng-controller="AppController">
+
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="{{favicon_url}}">
+
+    {{ 'css/bootstrap.min.css' | asset_url | stylesheet_tag }}
+    {{ 'css/theme.css' | asset_url | stylesheet_tag }}
+    {{ 'css/bootstrap-submenu.min.css' | asset_url | stylesheet_tag }}
+    {{ 'css/ui-notification.css' | asset_url | stylesheet_tag }}
+    {{ 'css/angucomplete.css' | asset_url | stylesheet_tag }}
+    {{ 'js/bootstrap.min.js' | asset_url | javascript_tag }}
+    {{ 'js/sessions.js' | asset_url | javascript_tag }}
+    {{ 'js/angucomplete-alt.min.js' | asset_url | javascript_tag }}
+    {{ 'js/search.js' | asset_url | javascript_tag }}
+    {{ 'js/zoom.js' | asset_url | javascript_tag }}
+    {{ 'js/social-share.js' | asset_url | javascript_tag }}
+
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700" rel="stylesheet">
+
+    {% include 'utils/fonts' %}
+
+    {% include 'customizations' %}
+  </head>
+  <body data-hook="body" products-controller pagination-controller {% if user.has_users? %} ng-controller="sessionModalController as sessionModalController" users-controller {% endif %} {% if user.has_cart? %} cart-controller {% endif %}>
+    {% include 'navbar' %}
+
+
+    <div id="main_container" class="row">
+      {{ content_for_layout }}
+    </div>
+    {% if user.has_users? %}
+      {% include 'login' %}
+    {% endif %}
+    {% include 'footer' %}
+
+    <ng-view></ng-view>
+  </body>
+</html>

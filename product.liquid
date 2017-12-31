@@ -1,0 +1,140 @@
+<span ng-controller="ProductController as product" >
+  <div class="product-container" ng-init="product.load({{product.id}})">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        {% include 'widgets/breadcrumbs' %}
+      </div>
+    </div>
+
+    <div class="row">
+      <h3 class="product-title visible-xs-block">
+        {{product.name}}
+      </h3>
+      <div class="product-image-container col-lg-4 col-lg-offset-2 col-sm-5 col-sm-offset-1 col-xs-12">
+        <div class="main-image">
+          <div class="zoom-indicator">
+            <i class="fa fa-search"></i>
+          </div>
+          <img ng-src="{[product.image]}" ng-elevate-zoom zoom-image="{[product.image]}">
+        </div>
+        <div class="thumbnails">
+          <div class="thumbnail" ng-repeat="image in product.images" ng-click="product.setImage($index)">
+            <img ng-src="{[image.small_url]}">
+           </div>
+        </div>
+      </div>
+      <div class="product-description-container col-lg-4 col-sm-5 col-xs-12">
+        <h3 class="product-title hidden-xs">
+          {{product.name}}
+        </h3>
+        {% if product.sku != null %}
+        <h6 class="sku">
+          SKU: {{product.sku}}
+        </h6>
+        {% endif %}
+        <div class="row" ng-cloak>
+          <br>
+          <div class='divisor full-width' ng-if="product.properties.length > 0" ng-cloak></div>
+          <div ng-repeat="property in product.properties" class="product-property">
+            <b>
+              {[property.property_name]}: {[property.value]}
+            </b>
+          </div>
+          <div class='divisor full-width' ng-if="product.properties.length > 0" ng-cloak></div>
+        </div>
+        <p class="product-price" ng-class="{'old-price': product.promo_price != null}" ng-cloak>
+          Precio: {[product.display_price]}
+        </p>
+        <p class="product-price promo-price" ng-show="product.promo_price != null" ng-cloak>
+          Precio: {[product.promo_price | currency : '$' : 0 | comma_to_dot]}
+        </p>
+        <div class="variants">
+          {% for variant in product.variants %}
+              <div class="variant">
+              <input type="radio" name="variant" value="{{variant.id}}" ng-click="product.setVariant({{variant.id}})"> <span>{{variant.options_text}}</span> </input>
+            </div>
+          {% endfor %}
+        </div>
+        </ul>
+        {% if user.has_cart? %}
+          <div class="row available-actions">
+            <div class="stock">
+              <p class="in-stock" ng-init="product.inStock = {{product.in_stock?}}">
+                {% if product.in_stock? %}
+                  En Stock
+                {% else %}
+                  Sin Stock
+                {% endif %}
+              </p>
+            </div>
+            <div class="quantity-container">
+              <div class="form-group">
+                {% if product.in_stock? %}
+                  <br>
+                  <span>
+                    Cantidad
+                  </span>
+                  <input type="number" name="quantity" ng-model="product.quantity" value="1" class="product-quantity"/>
+                {% else %}
+                  <input type="number" name="quantity" min="0" value="0" max="0">
+                {% endif %}
+              </div>
+            </div>
+
+
+            <div class="add-to-cart-button full-width">
+              {% include 'cart_button_product' %}
+            </div>
+
+          </div>
+        {% endif %}
+        <br>
+        <div class="row">
+          <div class="divisor full-width"></div>
+          <h6>
+            Nota
+          </h6>
+          <p>
+            Los despachos en Chicureo serán coordinados una vez recibamos su pago a través de transferencia bancaria. En caso de ausencia del cliente en la entrega, información errónea, cambio de domicilio o la negación del cliente de recibir el envío, es responsabilidad exclusivamente del cliente, teniendo que pagar un nuevo envío de $ 2.000.-
+          </p>
+        </div>
+        <div class="row">
+          {% include 'widgets/social' %}
+        </div>
+      </div>
+    </div>
+    {% if product.description != null %}
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+          <div class="description">
+            <h4 class="description-header">DESCRIPCIÓN</h4>
+            <p>
+              {{product.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <div id="related-products-container" ng-show="products.productsFactory.products.length > 1 && products.productsFactory.loadingRelated == false" ng-cloak>
+    <span class="overlay" ng-show="products.loading()">
+      <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+    </span>
+    <div class="speech-bubble">
+      <h4>
+        Sugerencias
+      </h4>
+    </div>
+    <ul id="related-products">
+      <li class="product" ng-repeat="p in products.productsFactory.products | limitTo:4" ng-if="p.id !== product.product.id" ng-cloak>
+
+        <a href="/products/{[p.slug]}">
+          <img ng-src="{[p.master.images[0].product_url]}">
+          <div class="name">
+            {[p.name]}
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</span>
